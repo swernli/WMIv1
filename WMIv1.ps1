@@ -26,6 +26,11 @@ class wmi {
             return "\\$($this.ciminstance.cimsystemproperties.servername)\$($this.ciminstance.cimsystemproperties.namespace.replace("/","\")):$($this.ciminstance.cimsystemproperties.classname).$([string]::Join(",",$keystrings))"
         },{}))
 
+        # Path.Path should return underlying Cim Instance for compatibility.
+        $this.psobject.members.Add((new-object management.automation.PSScriptProperty "Path",{
+            @{"Path"=$this.ciminstance}
+        },{}))
+
         # Create the default Cim Instance property wrappers.
         foreach ($p in $this.ciminstance.CimInstanceProperties){
             $this.psobject.members.Add((new-object management.automation.PSScriptProperty `
