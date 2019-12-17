@@ -24,7 +24,7 @@ function Get-WmiObject {
         [Parameter()]
         [ValidateNotNullOrEmpty()]
         [string]
-        $Namespace
+        $Namespace = "\\.\root\cimv2"
     )
 
     if ($Filter.Length -and $Property.Count){

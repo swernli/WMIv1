@@ -1,9 +1,13 @@
 class wmi {
     # Inner CimInstance
-    [CimInstance] $ciminstance
+    hidden [CimInstance] $ciminstance
+
+    # Path.Path should return underlying Cim Instance for compatibility.
+    hidden $Path
 
     wmi([CimInstance]$instance) {
         $this.ciminstance = $instance
+        $this.Path = @{"Path" = $this.ciminstance}
         $this.Init()
     }
 
@@ -24,11 +28,6 @@ class wmi {
             $keys = ($this.ciminstance.cimclass.CimClassProperties |Where-Object{$_.flags -like "*Key*"} | Select-Object -ExpandProperty name)
             $keystrings = ($keys | ForEach-Object{"$_=`"$($this.ciminstance.ciminstanceproperties[$_].value)`""})
             return "\\$($this.ciminstance.cimsystemproperties.servername)\$($this.ciminstance.cimsystemproperties.namespace.replace("/","\")):$($this.ciminstance.cimsystemproperties.classname).$([string]::Join(",",$keystrings))"
-        },{}))
-
-        # Path.Path should return underlying Cim Instance for compatibility.
-        $this.psobject.members.Add((new-object management.automation.PSScriptProperty "Path",{
-            @{"Path"=$this.ciminstance}
         },{}))
 
         # Create the default Cim Instance property wrappers.
@@ -92,6 +91,7 @@ class wmi {
     # Refresh the object based on the current cim instance.
     Get() {
         $this.ciminstance = $this.ciminstance | Get-CimInstance
+        $this.Path = @{"Path" = [string]$this.ciminstance}
     }
 
     [string] GetText($type) {

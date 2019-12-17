@@ -1,1 +1,1 @@
-docker run --rm -it --isolation process -v "$(Split-Path -Parent $PSCommandPath):c:\project" -w c:\project mcr.microsoft.com/powershell:latest
+start docker "run --rm -it --isolation process -v `"$(Split-Path -Parent $PSCommandPath):c:\project`" -w c:\project mcr.microsoft.com/powershell:latest"
