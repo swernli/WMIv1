@@ -123,7 +123,7 @@ class wmi {
 }
 
 class wmiclass {
-    [CimClass] $cimclass
+    hidden [CimClass] $cimclass
 
     wmiclass([string] $path) {
         $this.cimclass = Get-CimClass $path
