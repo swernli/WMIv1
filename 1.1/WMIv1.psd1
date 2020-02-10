@@ -7,12 +7,11 @@
 #
  
 @{
- 
-    # Script module or binary module file associated with this manifest
-    ModuleToProcess   = 'WMIv1.psm1'
+    # Modules that are imported as part of importing this module
+    RootModule   = 'WMIv1.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.0.0.0'
+    ModuleVersion     = '1.1'
 
     # ID used to uniquely identify this module
     GUID              = '3402a836-feef-4ade-ab59-8c8a4c6e24ec'
@@ -27,24 +26,8 @@
     Copyright         = '(c) Microsoft Corporation. All rights reserved.'
 
     # Minimum version of the Windows PowerShell engine required by this module
-    PowerShellVersion = '5.0'
+    PowerShellVersion = '6.0'
 
     # Modules that must be imported into the global environment prior to importing this module
     RequiredModules   = @('CimCmdlets')
-
-    # Script files (.ps1) that are run in the caller's environment prior to importing this module
-    ScriptsToProcess  = @('WMIv1.ps1')
-
-    # Type files (.ps1xml) to be loaded when importing this module
-    TypesToProcess    = @()
-
-    # Format files (.ps1xml) to be loaded when importing this module
-    FormatsToProcess  = @()
-
-    # Cmdlets to export from this module
-    CmdletsToExport   = 'Get-WmiObject'
-
-    # Aliases to export from this module
-    AliasesToExport   = 'gwmi'
-
 }
