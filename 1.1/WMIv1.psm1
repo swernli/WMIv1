@@ -26,7 +26,7 @@ class wmi {
         # __Path property (readonly)
         $this.psobject.members.Add((new-object management.automation.PSScriptProperty "__Path", {
                     $keys = ($this.ciminstance.cimclass.CimClassProperties | Where-Object { $_.flags -like "*Key*" } | Select-Object -ExpandProperty name)
-                    $keystrings = ($keys | ForEach-Object { "$_=`"$($this.ciminstance.ciminstanceproperties[$_].value)`"" })
+                    $keystrings = ($keys | ForEach-Object { "$_=`"$($this.ciminstance.ciminstanceproperties[$_].value.replace("\","\\"))`"" })
                     return "\\$($this.ciminstance.cimsystemproperties.servername)\$($this.ciminstance.cimsystemproperties.namespace.replace("/","\")):$($this.ciminstance.cimsystemproperties.classname).$([string]::Join(",",$keystrings))"
                 }, { }))
 
